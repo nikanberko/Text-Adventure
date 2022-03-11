@@ -1,0 +1,141 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+public class TextController : MonoBehaviour
+{
+    // Start is called before the first frame update
+
+    [SerializeField] Text  storyText;
+    private enum States{
+
+        beach, palm, wreck, wreck_inside, death, coconut, shrubs, victory, coconut_death
+    };
+    
+    private States myState;
+    
+    void Start()
+    {
+        storyText.text="Our first start text!";
+        myState=States.beach;
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+        /*if(Input.GetKeyDown(KeyCode.Space)){
+            storyText.text="spejs";
+        }*/
+
+        if(myState==States.beach){
+
+            beach();
+        }
+        else if(myState==States.palm){
+
+            palm();
+        } 
+        else if(myState==States.wreck){
+
+            wreck();
+        } 
+         else if(myState==States.wreck_inside){
+
+            wreck_inside();
+        } 
+        
+         else if(myState==States.death){
+
+            death();
+        } 
+         else if(myState==States.victory){
+
+            victory();
+        } 
+    }
+
+    void wreck_inside(){
+
+        storyText.text="You entered the shipwreck!" + "\n" + "Its cold inside, where do you wanna go?"+ 
+        "\n\n" + "Press W to go to downstairs." + "\n" + "Press P to exit and go to palm." + "\n" + "Press F to go upstairs" ;
+
+        if(Input.GetKeyDown(KeyCode.P)){
+            myState=States.palm;
+        }
+        
+        if(Input.GetKeyDown(KeyCode.W)){
+            myState=States.death;
+        }
+
+        if(Input.GetKeyDown(KeyCode.F)){
+            myState=States.victory;
+        }
+        
+
+    }
+    
+    void coconut_death(){
+        storyText.text="U ded, a coconut killed you :( \n Sleep tight sweet prince..."+"\n"+"Press F to pay respect";
+         
+        if(Input.GetKeyDown(KeyCode.F)){
+            storyText.text="RIP";
+        }
+    }
+    void death(){
+        storyText.text="U ded :( \n Sleep tight sweet prince..."+"\n"+"Press F to pay respect";
+         
+        if(Input.GetKeyDown(KeyCode.F)){
+            storyText.text="RIP";
+        }
+    }
+    void victory(){
+
+        storyText.text="Nice, you found food, water and a jetpack. Well fed and ain't ded! You won!";
+    }
+    void beach(){
+
+        storyText.text="U have woken up, pirate!" + "\n" + "You see a palm and a shipwreck, where you wanna go?"+ 
+        "\n\n" + "Press W to go to the shipwreck." + "\n" + "Press P to go to the palm.";
+
+        if(Input.GetKeyDown(KeyCode.P)){
+            myState=States.palm;
+        }
+        
+        if(Input.GetKeyDown(KeyCode.W)){
+            myState=States.wreck;
+        }
+        
+    }
+     void palm(){
+
+        storyText.text="This palm has twenty four coconuts!" + "\n" + "You are starving and you want some!"+ 
+        "\n\n" + "Press C to go to hit the palm." + "\n" + "Press W to walk away.";
+
+        if(Input.GetKeyDown(KeyCode.W)){
+            myState=States.death;
+        }
+        
+        if(Input.GetKeyDown(KeyCode.C)){
+            myState=States.wreck_inside;
+        }
+
+    }
+     void wreck(){
+
+        storyText.text="This could be your salvation!" + "\n" + "Wanna explore?!"+ 
+        "\n\n" + "Press C to go inside." + "\n" + "Press W to walk to the palm.";
+
+        if(Input.GetKeyDown(KeyCode.W)){
+            myState=States.palm;
+        }
+        
+        if(Input.GetKeyDown(KeyCode.C)){
+            myState=States.wreck_inside;
+        }
+
+    }
+
+    
+}
